@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="8.3.1" />
   </ItemGroup>
 
 </Project>

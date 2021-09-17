@@ -14,37 +14,37 @@ namespace DigitalizadorWIA.Scanners
             _deviceInfo = deviceInfo;
         }
 
-        public ImageFile Escanear(ETipoArquivo tipoArquivo)
+        public void Escanear(ETipoArquivo tipoArquivo, string pathDestino)
         {
             try
-            {                
+            {
                 var device = _deviceInfo.Connect(); // Conecta com o dispositivo                
                 var scanerItem = device.Items[1]; // Seleciona o scanner
 
                 ConfigurarScanner(scanerItem);
 
-                object scanResult = null;
+                ImageFile scanResult = null;
 
                 switch (tipoArquivo)
                 {
                     case ETipoArquivo.PNG:
-                        scanResult = scanerItem.Transfer("{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}");
+                        scanResult = (ImageFile)scanerItem.Transfer("{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}");
                         break;
                     case ETipoArquivo.JPEG:
-                        scanResult = scanerItem.Transfer("{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}");
+                        scanResult = (ImageFile)scanerItem.Transfer("{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}");
                         break;
                     case ETipoArquivo.TIFF:
-                        scanResult = scanerItem.Transfer("{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}");
+                        scanResult = (ImageFile)scanerItem.Transfer("{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}");
                         break;
                     case ETipoArquivo.BMP:
-                        scanResult = scanerItem.Transfer("{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}");
+                        scanResult = (ImageFile)scanerItem.Transfer("{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}");
                         break;
                     case ETipoArquivo.GIF:
-                        scanResult = scanerItem.Transfer("{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}");
+                        scanResult = (ImageFile)scanerItem.Transfer("{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}");
                         break;
                 }
 
-                return scanResult != null ? (ImageFile)scanResult : null;
+                scanResult.SaveFile(pathDestino);
             }
             catch (COMException e)
             {
@@ -62,12 +62,10 @@ namespace DigitalizadorWIA.Scanners
                         MessageBox.Show("Ocorreu um erro não conhecido!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
-
-                return null;
             }
         }
 
-        private static void ConfigurarScanner(IItem scannnerItem)
+        private void ConfigurarScanner(IItem scannnerItem)
         {
             try
             {
@@ -106,7 +104,7 @@ namespace DigitalizadorWIA.Scanners
             }
         }
 
-        private static void DefinirPropriedades(IProperties propriedades, object nomePropriedade, object valorPropriedade)
+        private void DefinirPropriedades(IProperties propriedades, object nomePropriedade, object valorPropriedade)
         {
             var propriedade = propriedades.get_Item(ref nomePropriedade);
             propriedade.set_Value(ref valorPropriedade);
