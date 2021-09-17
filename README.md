@@ -7,4 +7,5 @@
 <p>Tipo de projeto: Windows Forms</p>
 <p>Biblioteca usada: Microsoft Windows Image Acquisition Library v2.0</p>
 <p>Biblioteca usada: iTextsharp</p>
+<p>Biblioteca usada: Magick.NET-Q8-AnyCPU</p>
 <p>Banco de Dados: Não</p>
