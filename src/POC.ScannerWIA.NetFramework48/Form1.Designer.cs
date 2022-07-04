@@ -29,8 +29,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBoxConfigurations = new System.Windows.Forms.GroupBox();
-            this.dropDownFileType = new System.Windows.Forms.ComboBox();
             this.labelFileType = new System.Windows.Forms.Label();
+            this.dropDownFileType = new System.Windows.Forms.ComboBox();
             this.buttonScan = new System.Windows.Forms.Button();
             this.buttonModifyPath = new System.Windows.Forms.Button();
             this.textBoxDestinationPath = new System.Windows.Forms.TextBox();
@@ -65,6 +65,15 @@
             this.groupBoxConfigurations.TabStop = false;
             this.groupBoxConfigurations.Text = "Configurations";
             // 
+            // labelFileType
+            // 
+            this.labelFileType.AutoSize = true;
+            this.labelFileType.Location = new System.Drawing.Point(13, 489);
+            this.labelFileType.Name = "labelFileType";
+            this.labelFileType.Size = new System.Drawing.Size(50, 13);
+            this.labelFileType.TabIndex = 3;
+            this.labelFileType.Text = "File Type";
+            // 
             // dropDownFileType
             // 
             this.dropDownFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -80,15 +89,6 @@
             this.dropDownFileType.Name = "dropDownFileType";
             this.dropDownFileType.Size = new System.Drawing.Size(188, 21);
             this.dropDownFileType.TabIndex = 7;
-            // 
-            // labelFileType
-            // 
-            this.labelFileType.AutoSize = true;
-            this.labelFileType.Location = new System.Drawing.Point(13, 489);
-            this.labelFileType.Name = "labelFileType";
-            this.labelFileType.Size = new System.Drawing.Size(50, 13);
-            this.labelFileType.TabIndex = 3;
-            this.labelFileType.Text = "File Type";
             // 
             // buttonScan
             // 
@@ -187,7 +187,9 @@
             this.ClientSize = new System.Drawing.Size(800, 687);
             this.Controls.Add(this.groupBoxOutputFile);
             this.Controls.Add(this.groupBoxConfigurations);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "POC.ScannerWIA";

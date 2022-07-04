@@ -46,9 +46,11 @@ namespace POC.ScannerWIA.NetFramework48
 
             var scanner = listScannerList.SelectedItem as ScannerWIAHelper;
 
-            var fileType = $".{((EFileType)dropDownFileType.SelectedIndex).ToString().ToLower()}";
+            var fileType = (EFileType)dropDownFileType.SelectedIndex;
 
-            var filePath = $"{textBoxDestinationPath.Text}{textBoxFileName.Text}{fileType}";
+            var fileExtension = $".{fileType.ToString().ToLower()}";
+
+            var filePath = $"{textBoxDestinationPath.Text}{textBoxFileName.Text}{fileExtension}";
 
             if (scanner == null)
             {
@@ -68,25 +70,25 @@ namespace POC.ScannerWIA.NetFramework48
 
             try
             {
-                if ((EFileType)dropDownFileType.SelectedIndex == EFileType.PDF)
+                if (fileType == EFileType.PDF)
                 {
                     var tempImagePath = $"{textBoxDestinationPath.Text}{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.png";
 
                     scanner.Scan(EFileType.PNG, tempImagePath);
 
-                    ImageCompressorHelper.Compress((EFileType)dropDownFileType.SelectedIndex, tempImagePath);
-
-                    //pictureBoxOutputFile.Image = new Bitmap(filePath);
-
-                    PdfGeneratorHelper.ConvertImageToPdf(filePath, tempImagePath);
+                    var fileBytes = File.ReadAllBytes(tempImagePath);
 
                     File.Delete(tempImagePath);
+
+                    var stream = new MemoryStream(fileBytes);
+
+                    pictureBoxOutputFile.Image = new Bitmap(stream);
+
+                    PdfGeneratorHelper.ConvertImageToPdf(filePath, fileBytes);
                 }
                 else
                 {
-                    scanner.Scan((EFileType)dropDownFileType.SelectedIndex, filePath);
-
-                    ImageCompressorHelper.Compress((EFileType)dropDownFileType.SelectedIndex, filePath);
+                    scanner.Scan(fileType, filePath);
 
                     pictureBoxOutputFile.Image = new Bitmap(filePath);
                 }

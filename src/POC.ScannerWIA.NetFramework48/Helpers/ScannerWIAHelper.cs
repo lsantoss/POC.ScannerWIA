@@ -73,6 +73,8 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
                 }
 
                 imageFile.SaveFile(destinationPath);
+
+                ImageCompressorHelper.Compress(fileType, destinationPath);
             }
             catch (COMException e)
             {
@@ -117,8 +119,7 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
 
         private void SetProperties(IProperties properties, object propertyName, object propertyValue)
         {
-            var property = properties.get_Item(ref propertyName);
-            property.set_Value(ref propertyValue);
+            properties.get_Item(ref propertyName).set_Value(ref propertyValue);
         }
 
         public override string ToString()
