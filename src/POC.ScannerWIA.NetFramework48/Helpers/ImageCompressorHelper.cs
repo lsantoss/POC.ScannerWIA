@@ -1,28 +1,28 @@
-﻿using DigitalizadorWIA.Enums;
-using ImageMagick;
+﻿using ImageMagick;
+using POC.ScannerWIA.NetFramework48.Enums;
 
-namespace DigitalizadorWIA.Compactadores
+namespace POC.ScannerWIA.NetFramework48.Helpers
 {
-    public static class CompactadorImagens
+    public static class ImageCompressorHelper
     {
-        public static void Compactar(ETipoArquivo tipoArquivo, string pathImagem)
+        public static void Compress(EFileType fileType, string imagePath)
         {
             MagickFormat magickFormat;
-            switch (tipoArquivo)
+            switch (fileType)
             {
-                case ETipoArquivo.PNG:
+                case EFileType.PNG:
                     magickFormat = MagickFormat.Png8;
                     break;
-                case ETipoArquivo.JPEG:
+                case EFileType.JPEG:
                     magickFormat = MagickFormat.Jpeg;
                     break;
-                case ETipoArquivo.TIFF:
+                case EFileType.TIFF:
                     magickFormat = MagickFormat.Tiff;
                     break;
-                case ETipoArquivo.BMP:
+                case EFileType.BMP:
                     magickFormat = MagickFormat.Bmp;
                     break;
-                case ETipoArquivo.GIF:
+                case EFileType.GIF:
                     magickFormat = MagickFormat.Gif;
                     break;
                 default:
@@ -30,14 +30,14 @@ namespace DigitalizadorWIA.Compactadores
                     break;
             }
 
-            using (var imageMagick = new MagickImage(pathImagem))
+            using (var imageMagick = new MagickImage(imagePath))
             {
                 imageMagick.Transparent(MagickColor.FromRgb(0, 0, 0));
                 imageMagick.FilterType = FilterType.Quadratic;
                 imageMagick.Resize(2520, 3500);
                 imageMagick.ColorType = ColorType.TrueColor;
                 imageMagick.Format = magickFormat;
-                imageMagick.Write(pathImagem);
+                imageMagick.Write(imagePath);
             }
         }
     }

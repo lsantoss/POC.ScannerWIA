@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace DigitalizadorWIA
+namespace POC.ScannerWIA.NetFramework48
 {
     static class Program
     {
         /// <summary>
-        /// Ponto de entrada principal para o aplicativo.
+        /// Main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
