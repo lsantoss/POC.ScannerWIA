@@ -125,6 +125,7 @@
             this.textBoxFileName.Name = "textBoxFileName";
             this.textBoxFileName.Size = new System.Drawing.Size(188, 20);
             this.textBoxFileName.TabIndex = 5;
+            this.textBoxFileName.Text = "ScannedFile";
             // 
             // labelDestinationPath
             // 
@@ -169,7 +170,7 @@
             this.groupBoxOutputFile.Size = new System.Drawing.Size(535, 662);
             this.groupBoxOutputFile.TabIndex = 1;
             this.groupBoxOutputFile.TabStop = false;
-            this.groupBoxOutputFile.Text = "Output File";
+            this.groupBoxOutputFile.Text = "Output File (only images)";
             // 
             // pictureBoxOutputFile
             // 

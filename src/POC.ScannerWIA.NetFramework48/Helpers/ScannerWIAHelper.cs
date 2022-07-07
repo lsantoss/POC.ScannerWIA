@@ -1,6 +1,4 @@
 ﻿using POC.ScannerWIA.NetFramework48.Enums;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using WIA;
 
 namespace POC.ScannerWIA.NetFramework48.Helpers
@@ -13,24 +11,25 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
         private const string BMP_FORMAT_ID = "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}";
         private const string GIF_FORMAT_ID = "{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}";
 
-        private const int RESOLUTION_DPI = 300;
-        private const int HORIZONTAL_SCAN_START_PIXEL = 0;
-        private const int VERTICAL_SCAN_START_PIXEL = 0;
-        private const int HORIZONTAL_SCAN_SIZE_PIXELS = 2500;
-        private const int VERTICAL_SCAN_SIZE_PIXELS = 3400;
-        private const int SCAN_BRIGHTNESS_PERCENTS = 0;
-        private const int SCAN_CONTRAST_PERCENTS = 0;
-        private const int SCAN_COLOR_MODE = 1;
+        private const string HORIZONTAL_RESOLUTION_DPI_PROPERTY_NAME = "6147";
+        private const string VERTICAL_RESOLUTION_DPI_PROPERTY_NAME = "6148";
+        private const string HORIZONTAL_START_PIXEL_PROPERTY_NAME = "6149";
+        private const string VERTICAL_START_PIXEL_PROPERTY_NAME = "6150";
+        private const string HORIZONTAL_SIZE_PIXELS_PROPERTY_NAME = "6151";
+        private const string VERTICAL_SIZE_PIXELS_PROPERTY_NAME = "6152";
+        private const string BRIGHTNESS_PERCENTS_PROPERTY_NAME = "6154";
+        private const string CONTRAST_PERCENTS_PROPERTY_NAME = "6155";
+        private const string COLOR_MODE_PROPERTY_NAME = "6146";
 
-        private const string WIA_HORIZONTAL_SCAN_RESOLUTION_DPI = "6147";
-        private const string WIA_VERTICAL_SCAN_RESOLUTION_DPI = "6148";
-        private const string WIA_HORIZONTAL_SCAN_START_PIXEL = "6149";
-        private const string WIA_VERTICAL_SCAN_START_PIXEL = "6150";
-        private const string WIA_HORIZONTAL_SCAN_SIZE_PIXELS = "6151";
-        private const string WIA_VERTICAL_SCAN_SIZE_PIXELS = "6152";
-        private const string WIA_SCAN_BRIGHTNESS_PERCENTS = "6154";
-        private const string WIA_SCAN_CONTRAST_PERCENTS = "6155";
-        private const string WIA_SCAN_COLOR_MODE = "6146";
+        private const int HORIZONTAL_RESOLUTION_DPI_VALUE = 300;
+        private const int VERTICAL_RESOLUTION_DPI_VALUE = 300;
+        private const int HORIZONTAL_START_PIXEL_VALUE = 0;
+        private const int VERTICAL_START_PIXEL_VALUE = 0;
+        private const int HORIZONTAL_SIZE_PIXELS_VALUE = 2500;
+        private const int VERTICAL_SIZE_PIXELS_VALUE = 3400;
+        private const int BRIGHTNESS_PERCENTS_VALUE = 0;
+        private const int CONTRAST_PERCENTS_VALUE = 0;
+        private const int COLOR_MODE_VALUE = 1;
 
         private readonly DeviceInfo _deviceInfo;
 
@@ -39,85 +38,66 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
             _deviceInfo = deviceInfo;
         }
 
-        public void Scan(EFileType fileType, string destinationPath)
+        public byte[] Scan(EFileType outputTypeFile)
         {
-            try
-            {
-                // Connect with device
-                var device = _deviceInfo.Connect();
+            var device = _deviceInfo.Connect();
+            var scanerItem = device.Items[1];
+            ConfigureScanner(scanerItem);
 
-                // Select scanner
-                var scanerItem = device.Items[1]; 
+            var imageType = outputTypeFile == EFileType.PDF ? EFileType.PNG : outputTypeFile;
 
-                ConfigureScanner(scanerItem);
+            var imageFile = GetImageFile(imageType, scanerItem);
 
-                ImageFile imageFile = null;
+            var image = (byte[])imageFile.FileData.get_BinaryData();
 
-                switch (fileType)
-                {
-                    case EFileType.PNG:
-                        imageFile = (ImageFile)scanerItem.Transfer(PNG_FORMAT_ID);
-                        break;
-                    case EFileType.JPEG:
-                        imageFile = (ImageFile)scanerItem.Transfer(JPEG_FORMAT_ID);
-                        break;
-                    case EFileType.TIFF:
-                        imageFile = (ImageFile)scanerItem.Transfer(TIFF_FORMAT_ID);
-                        break;
-                    case EFileType.BMP:
-                        imageFile = (ImageFile)scanerItem.Transfer(BMP_FORMAT_ID);
-                        break;
-                    case EFileType.GIF:
-                        imageFile = (ImageFile)scanerItem.Transfer(GIF_FORMAT_ID);
-                        break;
-                }
+            var compressedFile = ImageCompressorHelper.Compress(imageType, image);
 
-                imageFile.SaveFile(destinationPath);
+            if (outputTypeFile == EFileType.PDF)
+                compressedFile = PdfGeneratorHelper.ConvertImageToPdf(compressedFile);
 
-                ImageCompressorHelper.Compress(fileType, destinationPath);
-            }
-            catch (COMException e)
-            {
-                switch ((uint)e.ErrorCode)
-                {
-                    case 0x80210006:
-                        MessageBox.Show("The scanner is not ready or is busy!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    case 0x80210064:
-                        MessageBox.Show("The scanning process has been canceled!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                    default:
-                        MessageBox.Show("An unknown error has occurred!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
-            }
-            catch
-            {
-                MessageBox.Show("An unknown error has occurred!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            return compressedFile;           
         }
 
-        private void ConfigureScanner(IItem scannnerItem)
+        private static ImageFile GetImageFile(EFileType fileType, Item scanerItem)
         {
-            try
+            ImageFile imageFile = null;
+
+            switch (fileType)
             {
-                SetProperties(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_RESOLUTION_DPI, RESOLUTION_DPI);
-                SetProperties(scannnerItem.Properties, WIA_VERTICAL_SCAN_RESOLUTION_DPI, RESOLUTION_DPI);
-                SetProperties(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_START_PIXEL, HORIZONTAL_SCAN_START_PIXEL);
-                SetProperties(scannnerItem.Properties, WIA_VERTICAL_SCAN_START_PIXEL, VERTICAL_SCAN_START_PIXEL);
-                SetProperties(scannnerItem.Properties, WIA_HORIZONTAL_SCAN_SIZE_PIXELS, HORIZONTAL_SCAN_SIZE_PIXELS);
-                SetProperties(scannnerItem.Properties, WIA_VERTICAL_SCAN_SIZE_PIXELS, VERTICAL_SCAN_SIZE_PIXELS);
-                SetProperties(scannnerItem.Properties, WIA_SCAN_BRIGHTNESS_PERCENTS, SCAN_BRIGHTNESS_PERCENTS);
-                SetProperties(scannnerItem.Properties, WIA_SCAN_CONTRAST_PERCENTS, SCAN_CONTRAST_PERCENTS);
-                SetProperties(scannnerItem.Properties, WIA_SCAN_COLOR_MODE, SCAN_COLOR_MODE);
+                case EFileType.PNG:
+                    imageFile = (ImageFile)scanerItem.Transfer(PNG_FORMAT_ID);
+                    break;
+                case EFileType.JPEG:
+                    imageFile = (ImageFile)scanerItem.Transfer(JPEG_FORMAT_ID);
+                    break;
+                case EFileType.TIFF:
+                    imageFile = (ImageFile)scanerItem.Transfer(TIFF_FORMAT_ID);
+                    break;
+                case EFileType.BMP:
+                    imageFile = (ImageFile)scanerItem.Transfer(BMP_FORMAT_ID);
+                    break;
+                case EFileType.GIF:
+                    imageFile = (ImageFile)scanerItem.Transfer(GIF_FORMAT_ID);
+                    break;
             }
-            catch
-            {
-                MessageBox.Show("Error configuring scanner", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            return imageFile;
         }
 
-        private void SetProperties(IProperties properties, object propertyName, object propertyValue)
+        private static void ConfigureScanner(IItem scannnerItem)
+        {
+            SetProperties(scannnerItem.Properties, HORIZONTAL_RESOLUTION_DPI_PROPERTY_NAME, HORIZONTAL_RESOLUTION_DPI_VALUE);
+            SetProperties(scannnerItem.Properties, VERTICAL_RESOLUTION_DPI_PROPERTY_NAME, VERTICAL_RESOLUTION_DPI_VALUE);
+            SetProperties(scannnerItem.Properties, HORIZONTAL_START_PIXEL_PROPERTY_NAME, HORIZONTAL_START_PIXEL_VALUE);
+            SetProperties(scannnerItem.Properties, VERTICAL_START_PIXEL_PROPERTY_NAME, VERTICAL_START_PIXEL_VALUE);
+            SetProperties(scannnerItem.Properties, HORIZONTAL_SIZE_PIXELS_PROPERTY_NAME, HORIZONTAL_SIZE_PIXELS_VALUE);
+            SetProperties(scannnerItem.Properties, VERTICAL_SIZE_PIXELS_PROPERTY_NAME, VERTICAL_SIZE_PIXELS_VALUE);
+            SetProperties(scannnerItem.Properties, BRIGHTNESS_PERCENTS_PROPERTY_NAME, BRIGHTNESS_PERCENTS_VALUE);
+            SetProperties(scannnerItem.Properties, CONTRAST_PERCENTS_PROPERTY_NAME, CONTRAST_PERCENTS_VALUE);
+            SetProperties(scannnerItem.Properties, COLOR_MODE_PROPERTY_NAME, COLOR_MODE_VALUE);
+        }
+
+        private static void SetProperties(IProperties properties, object propertyName, object propertyValue)
         {
             properties.get_Item(ref propertyName).set_Value(ref propertyValue);
         }

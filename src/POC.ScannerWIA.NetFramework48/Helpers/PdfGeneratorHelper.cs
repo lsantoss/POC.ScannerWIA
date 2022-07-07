@@ -6,17 +6,32 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
 {
     public static class PdfGeneratorHelper
     {
-        public static void ConvertImageToPdf(string destinationPath, byte[] fileBytes)
+        public static byte[] ConvertImageToPdf(byte[] fileBytes)
         {
-            using (var document = new Document(PageSize.LETTER, 5f, 5f, 5f, 5f))
+            using (var memoryStream = new MemoryStream())
             {
-                PdfWriter.GetInstance(document, new FileStream(destinationPath, FileMode.Create));
-                document.Open();
+                var document = new Document(PageSize.LETTER, 5f, 5f, 5f, 5f);
+                var writer = PdfWriter.GetInstance(document, memoryStream);
+
                 var attachedImage = Image.GetInstance(fileBytes);
                 attachedImage.ScaleToFit(650f, 780f);
                 attachedImage.Alignment = Element.ALIGN_CENTER;
+
+                document.Open();
                 document.Add(attachedImage);
+                document.Close();
+
+                var pdfFile = memoryStream.ToArray();
+                memoryStream.Close();
+
+                return pdfFile;
             }
+        }
+
+        public static void SaveImageAsPdf(string destinationPath, byte[] fileBytes)
+        {
+            var pdfFile = ConvertImageToPdf(fileBytes);
+            File.WriteAllBytes(destinationPath, pdfFile);
         }
     }
 }

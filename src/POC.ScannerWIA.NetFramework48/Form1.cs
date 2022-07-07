@@ -3,6 +3,7 @@ using POC.ScannerWIA.NetFramework48.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WIA;
 
@@ -48,9 +49,7 @@ namespace POC.ScannerWIA.NetFramework48
 
             var fileType = (EFileType)dropDownFileType.SelectedIndex;
 
-            var fileExtension = $".{fileType.ToString().ToLower()}";
-
-            var filePath = $"{textBoxDestinationPath.Text}{textBoxFileName.Text}{fileExtension}";
+            var filePath = $"{textBoxDestinationPath.Text}{textBoxFileName.Text}.{fileType.ToString().ToLower()}";
 
             if (scanner == null)
             {
@@ -70,30 +69,25 @@ namespace POC.ScannerWIA.NetFramework48
 
             try
             {
-                if (fileType == EFileType.PDF)
-                {
-                    var tempImagePath = $"{textBoxDestinationPath.Text}{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.png";
+                var scannedFile = scanner.Scan(fileType);
+                File.WriteAllBytes(filePath, scannedFile);
 
-                    scanner.Scan(EFileType.PNG, tempImagePath);
-
-                    var fileBytes = File.ReadAllBytes(tempImagePath);
-
-                    File.Delete(tempImagePath);
-
-                    var stream = new MemoryStream(fileBytes);
-
-                    pictureBoxOutputFile.Image = new Bitmap(stream);
-
-                    PdfGeneratorHelper.ConvertImageToPdf(filePath, fileBytes);
-                }
-                else
-                {
-                    scanner.Scan(fileType, filePath);
-
-                    pictureBoxOutputFile.Image = new Bitmap(filePath);
-                }
+                if (fileType != EFileType.PDF)
+                    pictureBoxOutputFile.Image = new Bitmap(new MemoryStream(scannedFile));
 
                 MessageBox.Show("Document scanned successfully!", "Success!");
+            }
+            catch (COMException ex)
+            {
+                switch ((uint)ex.ErrorCode)
+                {
+                    case 0x80210006:
+                        MessageBox.Show("The scanner is not ready or is busy!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case 0x80210064:
+                        MessageBox.Show("The scanning process has been canceled!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
             }
             catch
             {
