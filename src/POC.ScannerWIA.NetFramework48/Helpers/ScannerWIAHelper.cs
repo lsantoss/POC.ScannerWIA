@@ -32,52 +32,51 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
         private const int COLOR_MODE_VALUE = 1;
 
         private readonly DeviceInfo _deviceInfo;
+        private readonly Item _scanerItem;
 
         public ScannerWIAHelper(DeviceInfo deviceInfo)
         {
             _deviceInfo = deviceInfo;
+            _scanerItem = _deviceInfo.Connect().Items[1];
+            ConfigureScanner(_scanerItem);
         }
 
         public byte[] Scan(EFileType outputTypeFile)
         {
-            var device = _deviceInfo.Connect();
-            var scanerItem = device.Items[1];
-            ConfigureScanner(scanerItem);
-
             var imageType = outputTypeFile == EFileType.PDF ? EFileType.PNG : outputTypeFile;
 
-            var imageFile = GetImageFile(imageType, scanerItem);
+            var imageFile = GetImageFile(imageType, _scanerItem);
 
             var image = (byte[])imageFile.FileData.get_BinaryData();
 
-            var compressedFile = ImageCompressorHelper.Compress(imageType, image);
+            var compressedImage = ImageCompressorHelper.Compress(imageType, image);
 
             if (outputTypeFile == EFileType.PDF)
-                compressedFile = PdfGeneratorHelper.ConvertImageToPdf(compressedFile);
+                return PdfGeneratorHelper.ConvertImageToPdf(compressedImage);
 
-            return compressedFile;           
+            return compressedImage;           
         }
 
-        private static ImageFile GetImageFile(EFileType fileType, Item scanerItem)
+        private static ImageFile GetImageFile(EFileType fileType, Item _scanerItem)
         {
             ImageFile imageFile = null;
 
             switch (fileType)
             {
                 case EFileType.PNG:
-                    imageFile = (ImageFile)scanerItem.Transfer(PNG_FORMAT_ID);
+                    imageFile = (ImageFile)_scanerItem.Transfer(PNG_FORMAT_ID);
                     break;
                 case EFileType.JPEG:
-                    imageFile = (ImageFile)scanerItem.Transfer(JPEG_FORMAT_ID);
+                    imageFile = (ImageFile)_scanerItem.Transfer(JPEG_FORMAT_ID);
                     break;
                 case EFileType.TIFF:
-                    imageFile = (ImageFile)scanerItem.Transfer(TIFF_FORMAT_ID);
+                    imageFile = (ImageFile)_scanerItem.Transfer(TIFF_FORMAT_ID);
                     break;
                 case EFileType.BMP:
-                    imageFile = (ImageFile)scanerItem.Transfer(BMP_FORMAT_ID);
+                    imageFile = (ImageFile)_scanerItem.Transfer(BMP_FORMAT_ID);
                     break;
                 case EFileType.GIF:
-                    imageFile = (ImageFile)scanerItem.Transfer(GIF_FORMAT_ID);
+                    imageFile = (ImageFile)_scanerItem.Transfer(GIF_FORMAT_ID);
                     break;
             }
 

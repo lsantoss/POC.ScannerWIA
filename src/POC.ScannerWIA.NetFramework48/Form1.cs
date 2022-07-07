@@ -18,14 +18,15 @@ namespace POC.ScannerWIA.NetFramework48
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dropDownFileType.SelectedIndex = 0;
+
             listScannerList.Items.Clear();
+
             var deviceManager = new DeviceManager();
 
             foreach (DeviceInfo device in deviceManager.DeviceInfos)
                 if (device.Type == WiaDeviceType.ScannerDeviceType)
                     listScannerList.Items.Add(new ScannerWIAHelper(device));
-
-            dropDownFileType.SelectedIndex = 0;
         }
 
         private void ButtonModifyPath_Click(object sender, EventArgs e)
