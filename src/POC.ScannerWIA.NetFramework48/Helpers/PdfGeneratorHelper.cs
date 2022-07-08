@@ -10,12 +10,12 @@ namespace POC.ScannerWIA.NetFramework48.Helpers
         {
             using (var memoryStream = new MemoryStream())
             {
-                var document = new Document(PageSize.LETTER, 5f, 5f, 5f, 5f);
+                var document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
                 var writer = PdfWriter.GetInstance(document, memoryStream);
 
                 var attachedImage = Image.GetInstance(fileBytes);
                 attachedImage.ScaleToFit(650f, 780f);
-                attachedImage.Alignment = Element.ALIGN_CENTER;
+                attachedImage.Alignment = Element.ALIGN_LEFT;
 
                 document.Open();
                 document.Add(attachedImage);
