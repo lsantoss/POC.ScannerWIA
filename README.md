@@ -1,11 +1,19 @@
-# Digitalizador WIA Completo
+# POC.SacannerWIA
 
-<h3>Aplicação:</h3>
-<p>Essa aplicação contém um exemplo de um Digitalizador WIA, que é capaz de salvar digitalizações em vários formatos de imagem e em PDF</p>
+## Application:
+This application contains an example of a WIA Scanner, being able to save scans in various image formats and in PDF.
 
-<h3>Detalhes:</h3>
-<p>Tipo de projeto: Windows Forms</p>
-<p>Banco de Dados: Não</p>
-<p>Biblioteca usada: Microsoft Windows Image Acquisition Library v2.0</p>
-<p>Biblioteca usada: iTextsharp</p>
-<p>Biblioteca usada: Magick.NET-Q8-AnyCPU</p>
+> Built in Windows Forms.
+
+---
+
+## Frameworks:
+- .Net 5
+- .Net Framework 4.8
+
+---
+
+## Libraries (only most important):
+- iTextsharp
+- Magick.NET.Core
+- Magick.NET-Q8-AnyCPU
