@@ -46,7 +46,7 @@ namespace POC.ScannerWIA.NetFramework48
         {
             pictureBoxOutputFile.Image = null;
 
-            var scanner = listScannerList.SelectedItem as ScannerWIAHelper;
+            var scanner = (ScannerWIAHelper)listScannerList.SelectedItem;
 
             var fileType = (EFileType)dropDownFileType.SelectedIndex;
 
