@@ -1,4 +1,4 @@
-﻿namespace DigitalizadorWIA
+﻿namespace POC.ScannerWIA.NetCore5
 {
     partial class Form1
     {

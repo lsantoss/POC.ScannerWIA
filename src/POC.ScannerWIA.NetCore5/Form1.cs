@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WIA;
 
-namespace DigitalizadorWIA
+namespace POC.ScannerWIA.NetCore5
 {
     public partial class Form1 : Form
     {
