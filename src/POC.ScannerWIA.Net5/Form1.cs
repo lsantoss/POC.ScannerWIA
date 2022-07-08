@@ -1,5 +1,5 @@
-﻿using POC.ScannerWIA.NetCore5.Enums;
-using POC.ScannerWIA.NetCore5.Helpers;
+﻿using POC.ScannerWIA.Net5.Enums;
+using POC.ScannerWIA.Net5.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WIA;
 
-namespace POC.ScannerWIA.NetCore5
+namespace POC.ScannerWIA.Net5
 {
     public partial class Form1 : Form
     {

@@ -2,7 +2,7 @@
 using iTextSharp.text.pdf;
 using System.IO;
 
-namespace POC.ScannerWIA.NetCore5.Helpers
+namespace POC.ScannerWIA.Net5.Helpers
 {
     public static class PdfGeneratorHelper
     {

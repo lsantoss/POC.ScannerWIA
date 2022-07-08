@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace POC.ScannerWIA.NetCore5
+namespace POC.ScannerWIA.Net5
 {
     static class Program
     {

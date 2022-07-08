@@ -1,8 +1,8 @@
 ﻿using ImageMagick;
-using POC.ScannerWIA.NetCore5.Enums;
+using POC.ScannerWIA.Net5.Enums;
 using System;
 
-namespace POC.ScannerWIA.NetCore5.Helpers
+namespace POC.ScannerWIA.Net5.Helpers
 {
     public static class ImageCompressorHelper
     {

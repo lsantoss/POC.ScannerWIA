@@ -1,4 +1,4 @@
-﻿namespace POC.ScannerWIA.NetCore5
+﻿namespace POC.ScannerWIA.Net5
 {
     partial class Form1
     {
