@@ -1,7 +1,8 @@
+using DigitalizadorWIA;
 using System;
 using System.Windows.Forms;
 
-namespace DigitalizadorWIA
+namespace POC.ScannerWIA.NetCore5
 {
     static class Program
     {

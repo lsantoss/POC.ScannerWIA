@@ -3,14 +3,14 @@
     partial class Form1
     {
         /// <summary>
-        /// Variável de designer necessária.
+        /// Designer variable required.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpar os recursos que estão sendo usados.
+        /// Clean up resources being used.
         /// </summary>
-        /// <param name="disposing">true se for necessário descartar os recursos gerenciados; caso contrário, false.</param>
+        /// <param name="disposing">true if it is necessary to dispose of managed resources; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,260 +23,200 @@
         #region Código gerado pelo Windows Form Designer
 
         /// <summary>
-        /// Método necessário para suporte ao Designer - não modifique 
-        /// o conteúdo deste método com o editor de código.
+        /// Required method for Designer support - do not modify the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.gboxConfiguracao = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnGerarPDF = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbFormato = new System.Windows.Forms.ComboBox();
-            this.lblFomato = new System.Windows.Forms.Label();
-            this.btnScanner = new System.Windows.Forms.Button();
-            this.btnLocalDestino = new System.Windows.Forms.Button();
-            this.txtLocalDestino = new System.Windows.Forms.TextBox();
-            this.txtNomeArquivo = new System.Windows.Forms.TextBox();
-            this.lblLocalDestino = new System.Windows.Forms.Label();
-            this.lblNomeArquivo = new System.Windows.Forms.Label();
-            this.lblScanners = new System.Windows.Forms.Label();
-            this.lstScanners = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.gboxConfiguracao.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.groupBoxConfigurations = new System.Windows.Forms.GroupBox();
+            this.labelFileType = new System.Windows.Forms.Label();
+            this.dropDownFileType = new System.Windows.Forms.ComboBox();
+            this.buttonScan = new System.Windows.Forms.Button();
+            this.buttonModifyPath = new System.Windows.Forms.Button();
+            this.textBoxDestinationPath = new System.Windows.Forms.TextBox();
+            this.textBoxFileName = new System.Windows.Forms.TextBox();
+            this.labelDestinationPath = new System.Windows.Forms.Label();
+            this.labelFileName = new System.Windows.Forms.Label();
+            this.labelScannerList = new System.Windows.Forms.Label();
+            this.listScannerList = new System.Windows.Forms.ListBox();
+            this.groupBoxOutputFile = new System.Windows.Forms.GroupBox();
+            this.pictureBoxOutputFile = new System.Windows.Forms.PictureBox();
+            this.groupBoxConfigurations.SuspendLayout();
+            this.groupBoxOutputFile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOutputFile)).BeginInit();
             this.SuspendLayout();
             // 
-            // gboxConfiguracao
+            // groupBoxConfigurations
             // 
-            this.gboxConfiguracao.Controls.Add(this.groupBox3);
-            this.gboxConfiguracao.Controls.Add(this.groupBox2);
-            this.gboxConfiguracao.Controls.Add(this.btnLocalDestino);
-            this.gboxConfiguracao.Controls.Add(this.txtLocalDestino);
-            this.gboxConfiguracao.Controls.Add(this.txtNomeArquivo);
-            this.gboxConfiguracao.Controls.Add(this.lblLocalDestino);
-            this.gboxConfiguracao.Controls.Add(this.lblNomeArquivo);
-            this.gboxConfiguracao.Controls.Add(this.lblScanners);
-            this.gboxConfiguracao.Controls.Add(this.lstScanners);
-            this.gboxConfiguracao.Location = new System.Drawing.Point(15, 15);
-            this.gboxConfiguracao.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gboxConfiguracao.Name = "gboxConfiguracao";
-            this.gboxConfiguracao.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.gboxConfiguracao.Size = new System.Drawing.Size(261, 764);
-            this.gboxConfiguracao.TabIndex = 0;
-            this.gboxConfiguracao.TabStop = false;
-            this.gboxConfiguracao.Text = "Configurações";
+            this.groupBoxConfigurations.Controls.Add(this.labelFileType);
+            this.groupBoxConfigurations.Controls.Add(this.dropDownFileType);
+            this.groupBoxConfigurations.Controls.Add(this.buttonScan);
+            this.groupBoxConfigurations.Controls.Add(this.buttonModifyPath);
+            this.groupBoxConfigurations.Controls.Add(this.textBoxDestinationPath);
+            this.groupBoxConfigurations.Controls.Add(this.textBoxFileName);
+            this.groupBoxConfigurations.Controls.Add(this.labelDestinationPath);
+            this.groupBoxConfigurations.Controls.Add(this.labelFileName);
+            this.groupBoxConfigurations.Controls.Add(this.labelScannerList);
+            this.groupBoxConfigurations.Controls.Add(this.listScannerList);
+            this.groupBoxConfigurations.Location = new System.Drawing.Point(13, 13);
+            this.groupBoxConfigurations.Name = "groupBoxConfigurations";
+            this.groupBoxConfigurations.Size = new System.Drawing.Size(224, 662);
+            this.groupBoxConfigurations.TabIndex = 0;
+            this.groupBoxConfigurations.TabStop = false;
+            this.groupBoxConfigurations.Text = "Configurations";
             // 
-            // groupBox3
+            // labelFileType
             // 
-            this.groupBox3.Controls.Add(this.btnGerarPDF);
-            this.groupBox3.Location = new System.Drawing.Point(7, 659);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Size = new System.Drawing.Size(247, 84);
-            this.groupBox3.TabIndex = 12;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Gerar Arquivo PDF";
+            this.labelFileType.AutoSize = true;
+            this.labelFileType.Location = new System.Drawing.Point(13, 489);
+            this.labelFileType.Name = "labelFileType";
+            this.labelFileType.Size = new System.Drawing.Size(50, 13);
+            this.labelFileType.TabIndex = 3;
+            this.labelFileType.Text = "File Type";
             // 
-            // btnGerarPDF
+            // dropDownFileType
             // 
-            this.btnGerarPDF.Location = new System.Drawing.Point(12, 25);
-            this.btnGerarPDF.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnGerarPDF.Name = "btnGerarPDF";
-            this.btnGerarPDF.Size = new System.Drawing.Size(219, 45);
-            this.btnGerarPDF.TabIndex = 10;
-            this.btnGerarPDF.Text = "Gerar PDF";
-            this.btnGerarPDF.UseVisualStyleBackColor = true;
-            this.btnGerarPDF.Click += new System.EventHandler(this.BtnGerarPDF_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.cbFormato);
-            this.groupBox2.Controls.Add(this.lblFomato);
-            this.groupBox2.Controls.Add(this.btnScanner);
-            this.groupBox2.Location = new System.Drawing.Point(7, 505);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Size = new System.Drawing.Size(247, 136);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Gerar Arquivo de Imagem";
-            // 
-            // cbFormato
-            // 
-            this.cbFormato.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFormato.FormattingEnabled = true;
-            this.cbFormato.Items.AddRange(new object[] {
+            this.dropDownFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dropDownFileType.FormattingEnabled = true;
+            this.dropDownFileType.Items.AddRange(new object[] {
+            "PDF",
             "PNG",
             "JPEG",
             "TIFF",
             "BMP",
             "GIF"});
-            this.cbFormato.Location = new System.Drawing.Point(12, 45);
-            this.cbFormato.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cbFormato.Name = "cbFormato";
-            this.cbFormato.Size = new System.Drawing.Size(219, 23);
-            this.cbFormato.TabIndex = 7;
+            this.dropDownFileType.Location = new System.Drawing.Point(16, 505);
+            this.dropDownFileType.Name = "dropDownFileType";
+            this.dropDownFileType.Size = new System.Drawing.Size(188, 21);
+            this.dropDownFileType.TabIndex = 7;
             // 
-            // lblFomato
+            // buttonScan
             // 
-            this.lblFomato.AutoSize = true;
-            this.lblFomato.Location = new System.Drawing.Point(8, 27);
-            this.lblFomato.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblFomato.Name = "lblFomato";
-            this.lblFomato.Size = new System.Drawing.Size(52, 15);
-            this.lblFomato.TabIndex = 3;
-            this.lblFomato.Text = "Formato";
+            this.buttonScan.Location = new System.Drawing.Point(16, 605);
+            this.buttonScan.Name = "buttonScan";
+            this.buttonScan.Size = new System.Drawing.Size(188, 39);
+            this.buttonScan.TabIndex = 9;
+            this.buttonScan.Text = "Scan";
+            this.buttonScan.UseVisualStyleBackColor = true;
+            this.buttonScan.Click += new System.EventHandler(this.ButtonScan_Click);
             // 
-            // btnScanner
+            // buttonModifyPath
             // 
-            this.btnScanner.Location = new System.Drawing.Point(12, 76);
-            this.btnScanner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnScanner.Name = "btnScanner";
-            this.btnScanner.Size = new System.Drawing.Size(219, 45);
-            this.btnScanner.TabIndex = 9;
-            this.btnScanner.Text = "Gerar Imagem";
-            this.btnScanner.UseVisualStyleBackColor = true;
-            this.btnScanner.Click += new System.EventHandler(this.BtnScanner_Click);
+            this.buttonModifyPath.Location = new System.Drawing.Point(16, 576);
+            this.buttonModifyPath.Name = "buttonModifyPath";
+            this.buttonModifyPath.Size = new System.Drawing.Size(188, 23);
+            this.buttonModifyPath.TabIndex = 8;
+            this.buttonModifyPath.Text = "Modify Path";
+            this.buttonModifyPath.UseVisualStyleBackColor = true;
+            this.buttonModifyPath.Click += new System.EventHandler(this.ButtonModifyPath_Click);
             // 
-            // btnLocalDestino
+            // textBoxDestinationPath
             // 
-            this.btnLocalDestino.Location = new System.Drawing.Point(19, 462);
-            this.btnLocalDestino.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnLocalDestino.Name = "btnLocalDestino";
-            this.btnLocalDestino.Size = new System.Drawing.Size(219, 27);
-            this.btnLocalDestino.TabIndex = 8;
-            this.btnLocalDestino.Text = "Modificar Destino";
-            this.btnLocalDestino.UseVisualStyleBackColor = true;
-            this.btnLocalDestino.Click += new System.EventHandler(this.BtnLocalDestino_Click);
+            this.textBoxDestinationPath.Enabled = false;
+            this.textBoxDestinationPath.Location = new System.Drawing.Point(16, 550);
+            this.textBoxDestinationPath.Name = "textBoxDestinationPath";
+            this.textBoxDestinationPath.Size = new System.Drawing.Size(188, 20);
+            this.textBoxDestinationPath.TabIndex = 6;
+            this.textBoxDestinationPath.Text = "D:\\";
             // 
-            // txtLocalDestino
+            // textBoxFileName
             // 
-            this.txtLocalDestino.Enabled = false;
-            this.txtLocalDestino.Location = new System.Drawing.Point(19, 432);
-            this.txtLocalDestino.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtLocalDestino.Name = "txtLocalDestino";
-            this.txtLocalDestino.Size = new System.Drawing.Size(219, 23);
-            this.txtLocalDestino.TabIndex = 6;
+            this.textBoxFileName.Location = new System.Drawing.Point(16, 462);
+            this.textBoxFileName.Name = "textBoxFileName";
+            this.textBoxFileName.Size = new System.Drawing.Size(188, 20);
+            this.textBoxFileName.TabIndex = 5;
+            this.textBoxFileName.Text = "ScannedFile";
             // 
-            // txtNomeArquivo
+            // labelDestinationPath
             // 
-            this.txtNomeArquivo.Location = new System.Drawing.Point(19, 373);
-            this.txtNomeArquivo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtNomeArquivo.Name = "txtNomeArquivo";
-            this.txtNomeArquivo.Size = new System.Drawing.Size(219, 23);
-            this.txtNomeArquivo.TabIndex = 5;
+            this.labelDestinationPath.AutoSize = true;
+            this.labelDestinationPath.Location = new System.Drawing.Point(13, 534);
+            this.labelDestinationPath.Name = "labelDestinationPath";
+            this.labelDestinationPath.Size = new System.Drawing.Size(85, 13);
+            this.labelDestinationPath.TabIndex = 4;
+            this.labelDestinationPath.Text = "Destination Path";
             // 
-            // lblLocalDestino
+            // labelFileName
             // 
-            this.lblLocalDestino.AutoSize = true;
-            this.lblLocalDestino.Location = new System.Drawing.Point(15, 413);
-            this.lblLocalDestino.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLocalDestino.Name = "lblLocalDestino";
-            this.lblLocalDestino.Size = new System.Drawing.Size(94, 15);
-            this.lblLocalDestino.TabIndex = 4;
-            this.lblLocalDestino.Text = "Local de Destino";
+            this.labelFileName.AutoSize = true;
+            this.labelFileName.Location = new System.Drawing.Point(13, 446);
+            this.labelFileName.Name = "labelFileName";
+            this.labelFileName.Size = new System.Drawing.Size(54, 13);
+            this.labelFileName.TabIndex = 2;
+            this.labelFileName.Text = "File Name";
             // 
-            // lblNomeArquivo
+            // labelScannerList
             // 
-            this.lblNomeArquivo.AutoSize = true;
-            this.lblNomeArquivo.Location = new System.Drawing.Point(15, 354);
-            this.lblNomeArquivo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNomeArquivo.Name = "lblNomeArquivo";
-            this.lblNomeArquivo.Size = new System.Drawing.Size(102, 15);
-            this.lblNomeArquivo.TabIndex = 2;
-            this.lblNomeArquivo.Text = "Nome do Arquivo";
+            this.labelScannerList.AutoSize = true;
+            this.labelScannerList.Location = new System.Drawing.Point(13, 31);
+            this.labelScannerList.Name = "labelScannerList";
+            this.labelScannerList.Size = new System.Drawing.Size(66, 13);
+            this.labelScannerList.TabIndex = 1;
+            this.labelScannerList.Text = "Scanner List";
             // 
-            // lblScanners
+            // listScannerList
             // 
-            this.lblScanners.AutoSize = true;
-            this.lblScanners.Location = new System.Drawing.Point(15, 36);
-            this.lblScanners.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblScanners.Name = "lblScanners";
-            this.lblScanners.Size = new System.Drawing.Size(97, 15);
-            this.lblScanners.TabIndex = 1;
-            this.lblScanners.Text = "Lista de Scanners";
+            this.listScannerList.FormattingEnabled = true;
+            this.listScannerList.Location = new System.Drawing.Point(16, 47);
+            this.listScannerList.Name = "listScannerList";
+            this.listScannerList.Size = new System.Drawing.Size(188, 381);
+            this.listScannerList.TabIndex = 0;
             // 
-            // lstScanners
+            // groupBoxOutputFile
             // 
-            this.lstScanners.FormattingEnabled = true;
-            this.lstScanners.ItemHeight = 15;
-            this.lstScanners.Location = new System.Drawing.Point(19, 54);
-            this.lstScanners.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.lstScanners.Name = "lstScanners";
-            this.lstScanners.Size = new System.Drawing.Size(219, 274);
-            this.lstScanners.TabIndex = 0;
+            this.groupBoxOutputFile.Controls.Add(this.pictureBoxOutputFile);
+            this.groupBoxOutputFile.Location = new System.Drawing.Point(253, 13);
+            this.groupBoxOutputFile.Name = "groupBoxOutputFile";
+            this.groupBoxOutputFile.Size = new System.Drawing.Size(535, 662);
+            this.groupBoxOutputFile.TabIndex = 1;
+            this.groupBoxOutputFile.TabStop = false;
+            this.groupBoxOutputFile.Text = "Output File (only images)";
             // 
-            // groupBox1
+            // pictureBoxOutputFile
             // 
-            this.groupBox1.Controls.Add(this.pictureBox);
-            this.groupBox1.Location = new System.Drawing.Point(295, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(624, 764);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Arquivo Gerado";
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Location = new System.Drawing.Point(22, 36);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(581, 707);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            this.pictureBoxOutputFile.Location = new System.Drawing.Point(19, 31);
+            this.pictureBoxOutputFile.Name = "pictureBoxOutputFile";
+            this.pictureBoxOutputFile.Size = new System.Drawing.Size(498, 613);
+            this.pictureBoxOutputFile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxOutputFile.TabIndex = 0;
+            this.pictureBoxOutputFile.TabStop = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 793);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gboxConfiguracao);
+            this.ClientSize = new System.Drawing.Size(800, 687);
+            this.Controls.Add(this.groupBoxOutputFile);
+            this.Controls.Add(this.groupBoxConfigurations);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Digitalizador WIA";
+            this.Text = "POC.ScannerWIA";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.gboxConfiguracao.ResumeLayout(false);
-            this.gboxConfiguracao.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            this.groupBoxConfigurations.ResumeLayout(false);
+            this.groupBoxConfigurations.PerformLayout();
+            this.groupBoxOutputFile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOutputFile)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gboxConfiguracao;
-        private System.Windows.Forms.Button btnScanner;
-        private System.Windows.Forms.Button btnLocalDestino;
-        private System.Windows.Forms.ComboBox cbFormato;
-        private System.Windows.Forms.TextBox txtLocalDestino;
-        private System.Windows.Forms.TextBox txtNomeArquivo;
-        private System.Windows.Forms.Label lblLocalDestino;
-        private System.Windows.Forms.Label lblFomato;
-        private System.Windows.Forms.Label lblNomeArquivo;
-        private System.Windows.Forms.Label lblScanners;
-        private System.Windows.Forms.ListBox lstScanners;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Button btnGerarPDF;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxConfigurations;
+        private System.Windows.Forms.Button buttonScan;
+        private System.Windows.Forms.Button buttonModifyPath;
+        private System.Windows.Forms.ComboBox dropDownFileType;
+        private System.Windows.Forms.TextBox textBoxDestinationPath;
+        private System.Windows.Forms.TextBox textBoxFileName;
+        private System.Windows.Forms.Label labelDestinationPath;
+        private System.Windows.Forms.Label labelFileType;
+        private System.Windows.Forms.Label labelFileName;
+        private System.Windows.Forms.Label labelScannerList;
+        private System.Windows.Forms.ListBox listScannerList;
+        private System.Windows.Forms.GroupBox groupBoxOutputFile;
+        private System.Windows.Forms.PictureBox pictureBoxOutputFile;
     }
 }

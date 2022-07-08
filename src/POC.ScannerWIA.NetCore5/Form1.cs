@@ -1,13 +1,9 @@
-﻿using DigitalizadorWIA.Compactadores;
-using DigitalizadorWIA.Enums;
-using DigitalizadorWIA.Geradores;
-using DigitalizadorWIA.Scanners;
-using ImageMagick;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using POC.ScannerWIA.NetCore5.Enums;
+using POC.ScannerWIA.NetCore5.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using WIA;
 
@@ -22,113 +18,81 @@ namespace DigitalizadorWIA
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            lstScanners.Items.Clear();
+            dropDownFileType.SelectedIndex = 0;
+
+            listScannerList.Items.Clear();
+
             var deviceManager = new DeviceManager();
 
-            foreach (DeviceInfo dispositivo in deviceManager.DeviceInfos)
-                if (dispositivo.Type == WiaDeviceType.ScannerDeviceType)
-                    lstScanners.Items.Add(new ScannerWIA(dispositivo));
-
-            txtLocalDestino.Text = @"D:\";
-            cbFormato.SelectedIndex = 0;
+            foreach (DeviceInfo device in deviceManager.DeviceInfos)
+                if (device.Type == WiaDeviceType.ScannerDeviceType)
+                    listScannerList.Items.Add(new ScannerWIAHelper(device));
         }
 
-        private void BtnLocalDestino_Click(object sender, EventArgs e)
+        private void ButtonModifyPath_Click(object sender, EventArgs e)
         {
-            var folderDlg = new FolderBrowserDialog();
-            folderDlg.ShowNewFolderButton = true;
+            var folderDlg = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true
+            };
 
             var result = folderDlg.ShowDialog();
 
             if (result == DialogResult.OK)
-                txtLocalDestino.Text = folderDlg.SelectedPath;
+                textBoxDestinationPath.Text = folderDlg.SelectedPath;
         }
 
-        private void BtnScanner_Click(object sender, EventArgs e)
+        private void ButtonScan_Click(object sender, EventArgs e)
         {
-            pictureBox.Image = null;
-            var scanner = lstScanners.SelectedItem as ScannerWIA;
-            var path = string.Empty;
+            pictureBoxOutputFile.Image = null;
+
+            var scanner = (ScannerWIAHelper)listScannerList.SelectedItem;
+
+            var fileType = (EFileType)dropDownFileType.SelectedIndex;
+
+            var filePath = $"{textBoxDestinationPath.Text}{textBoxFileName.Text}.{fileType.ToString().ToLower()}";
 
             if (scanner == null)
             {
-                MessageBox.Show("Selecione um scanner na lista!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Select a scanner from the list!", "Alert!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else if (string.IsNullOrEmpty(txtNomeArquivo.Text))
+            else if (string.IsNullOrEmpty(textBoxFileName.Text))
             {
-                MessageBox.Show("Digite um nome para o arquivo!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Enter a name for the file!", "Alert!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            else
+            else if (File.Exists(filePath))
             {
-                var imagemExtensao = $".{((ETipoArquivo)cbFormato.SelectedIndex).ToString().ToLower()}";
-                path = Path.Combine(txtLocalDestino.Text, txtNomeArquivo.Text + imagemExtensao);
-
-                if (File.Exists(path))
-                {
-                    MessageBox.Show("Atualmente existe um arquivo com mesmo nome e formato no local de destino!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MessageBox.Show("There is currently a file with the same name and format in the destination location!", "Alert!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             try
             {
-                scanner.Escanear((ETipoArquivo)cbFormato.SelectedIndex, path);
+                var scannedFile = scanner.Scan(fileType);
+                File.WriteAllBytes(filePath, scannedFile);
 
-                CompactadorImagens.Compactar((ETipoArquivo)cbFormato.SelectedIndex, path);
+                if (fileType != EFileType.PDF)
+                    pictureBoxOutputFile.Image = new Bitmap(new MemoryStream(scannedFile));
 
-                pictureBox.Image = new Bitmap(path);
-                MessageBox.Show("Documento digitalizado com sucesso!", "Sucesso!");
+                MessageBox.Show("Document scanned successfully!", "Success!");
             }
-            catch
+            catch (COMException ex)
             {
-                MessageBox.Show("Não foi possível salvar o documento", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnGerarPDF_Click(object sender, EventArgs e)
-        {
-            pictureBox.Image = null;
-            var scanner = lstScanners.SelectedItem as ScannerWIA;
-            var path = $"{txtLocalDestino.Text}{txtNomeArquivo.Text}.pdf";
-
-            if (scanner == null)
-            {
-                MessageBox.Show("Selecionar um scanner na lista!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (string.IsNullOrEmpty(txtNomeArquivo.Text))
-            {
-                MessageBox.Show("Digite um nome para o arquivo!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else
-            {
-                if (File.Exists(path))
+                switch ((uint)ex.ErrorCode)
                 {
-                    MessageBox.Show("Atualmente existe um arquivo com mesmo nome e formato no local de destino!", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    case 0x80210006:
+                        MessageBox.Show("The scanner is not ready or is busy!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case 0x80210064:
+                        MessageBox.Show("The scanning process has been canceled!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                 }
             }
-
-            try
-            {
-                var nomeImagemTemp = $"{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.png";
-                var pathImagemTemp = Path.Combine(txtLocalDestino.Text, nomeImagemTemp);
-                
-                scanner.Escanear(ETipoArquivo.PNG, pathImagemTemp);
-
-                CompactadorImagens.Compactar((ETipoArquivo)cbFormato.SelectedIndex, pathImagemTemp);
-
-                GeradorPDF.ConverterPngParaPDF(path, pathImagemTemp);
-
-                File.Delete(pathImagemTemp);
-                MessageBox.Show("Documento PDF criado com sucesso!", "Sucesso!");
-            }
             catch
             {
-                MessageBox.Show("Não foi possível criar arquivo PDF!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to save document", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
