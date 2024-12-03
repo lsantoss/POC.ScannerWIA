@@ -14,8 +14,7 @@ Type: Windows Forms.
 
 ---
 
-## Libraries (only most important):
+## Dependencies:
 
-- iTextsharp
-- Magick.NET.Core
 - Magick.NET-Q8-AnyCPU
+- QuestPDF
