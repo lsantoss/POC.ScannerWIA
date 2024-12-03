@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.ScannerWIA.NetFramework48", "src\POC.ScannerWIA.NetFramework48\POC.ScannerWIA.NetFramework48.csproj", "{EC18805A-CA79-4A4A-A7AD-5E9850E2E84F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3B72E60D-FE4D-4CD1-A1A6-85682DD86CEC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POC.ScannerWIA.Net5", "src\POC.ScannerWIA.Net5\POC.ScannerWIA.Net5.csproj", "{205A7AAA-20E2-46FB-B34C-4C45169007D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POC.ScannerWIA", "src\POC.ScannerWIA\POC.ScannerWIA.csproj", "{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "#solution-items", "#solution-items", "{F3FB1FD5-A128-4DA6-A0E0-72A0E08C329F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +21,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC18805A-CA79-4A4A-A7AD-5E9850E2E84F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC18805A-CA79-4A4A-A7AD-5E9850E2E84F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC18805A-CA79-4A4A-A7AD-5E9850E2E84F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC18805A-CA79-4A4A-A7AD-5E9850E2E84F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{205A7AAA-20E2-46FB-B34C-4C45169007D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{205A7AAA-20E2-46FB-B34C-4C45169007D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{205A7AAA-20E2-46FB-B34C-4C45169007D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{205A7AAA-20E2-46FB-B34C-4C45169007D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CEEE1FCC-A520-4E2F-B15F-5D844183F7EF} = {3B72E60D-FE4D-4CD1-A1A6-85682DD86CEC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC7CAE8F-853E-4985-A35C-2016558E9BC0}
