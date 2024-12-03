@@ -1,5 +1,6 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using System.IO;
 
 namespace POC.ScannerWIA.Helpers;
@@ -8,21 +9,24 @@ internal static class PdfHelper
 {
     public static byte[] ConvertImageToPdf(byte[] imageBytes)
     {
+        QuestPDF.Settings.License = LicenseType.Community;
+
         using var memoryStream = new MemoryStream();
-        var document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
-        var pdfWriter = PdfWriter.GetInstance(document, memoryStream);
 
-        var attachedImage = Image.GetInstance(imageBytes);
-        attachedImage.ScaleToFit(650f, 780f);
-        attachedImage.Alignment = Element.ALIGN_LEFT;
+        Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4);
+                page.Margin(0);
 
-        document.Open();
-        document.Add(attachedImage);
-        document.Close();
+                #pragma warning disable CS0618
+                page.Content().AlignCenter().Image(imageBytes, ImageScaling.FitWidth);
+                #pragma warning restore CS0618
+            });
+        })
+        .GeneratePdf(memoryStream);
 
-        var pdfFile = memoryStream.ToArray();
-        memoryStream.Close();
-
-        return pdfFile;
+        return memoryStream.ToArray();
     }
 }
