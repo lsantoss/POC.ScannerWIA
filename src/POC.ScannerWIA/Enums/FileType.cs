@@ -2,7 +2,7 @@
 
 namespace POC.ScannerWIA.Enums;
 
-internal enum FileType
+public enum FileType
 {
     [Description("PDF")]
     PDF = 0,

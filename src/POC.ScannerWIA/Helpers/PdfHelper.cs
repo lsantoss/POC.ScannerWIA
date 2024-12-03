@@ -5,7 +5,7 @@ using System.IO;
 
 namespace POC.ScannerWIA.Helpers;
 
-internal static class PdfHelper
+public static class PdfHelper
 {
     public static byte[] ConvertImageToPdf(byte[] imageBytes)
     {

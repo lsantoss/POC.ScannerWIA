@@ -5,7 +5,7 @@ using WIA;
 
 namespace POC.ScannerWIA.Scanners;
 
-internal class Scanner
+public class Scanner
 {
     private string Name { get; }
 

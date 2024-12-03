@@ -4,7 +4,7 @@ using System;
 
 namespace POC.ScannerWIA.Helpers;
 
-internal static class ImageHelper
+public static class ImageHelper
 {
     public static byte[] Compress(FileType fileType, byte[] imageBytes)
     {
