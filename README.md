@@ -1,4 +1,4 @@
-# POC.SacannerWIA
+# POC.ScannerWIA
 
 ## Application:
 
