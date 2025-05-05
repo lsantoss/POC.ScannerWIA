@@ -6,13 +6,9 @@ This application contains an example of a WIA Scanner, being able to save scans 
 
 Type: Windows Forms.
 
----
-
 ## Framework:
 
 - .Net 9
-
----
 
 ## Dependencies:
 
